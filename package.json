@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "express": "3.3.4",
-    "ejs": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "jade": ">= 0.0.1", 
+    "passport": "*",
+    "passport-google-oauth": "*"
   }
 }
