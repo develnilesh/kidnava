@@ -1,0 +1,9 @@
+p There are {{names.length}} Names
+div(ng-repeat='name in names')
+  h3 {{name.title}}
+  div {{name.text}}
+  a(href='/readName/{{name.id}}') More
+  |  - 
+  a(href='/editName/{{name.id}}') Edit
+  |  - 
+  a(href='/deleteName/{{name.id}}') Delete

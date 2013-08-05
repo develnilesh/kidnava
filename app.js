@@ -18,7 +18,6 @@ var app = express();
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-
   app.set('view engine', 'jade');
   app.set('view options', {
     layout: false
@@ -88,9 +87,9 @@ passport.use(new GoogleStrategy({
       // and return that user instead.
       return done(null, profile);
     });
-    //User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //  return done(err, user);
-    //});
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
   }
 ));
 
@@ -118,8 +117,12 @@ app.get('/auth/google/callback',
   });
 
 // Login
-app.post('/login', passport.authenticate('local', { successRedirect: '/',
-                                                    failureRedirect: '/login' }));
+app.post('/login',
+    passport.authenticate('google', { successRedirect: '/',
+                                      failureRedirect: '/login' }),
+    function(req, res){
+      res.render('login');
+});
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -128,13 +131,14 @@ app.get('/logout', function(req, res){
 
 
 // Routes
-app.get('/', function(req, res){
-  res.render('index', { user: req.user });
+app.get('/',
+  ensureAuthenticated,
+  function(req, res) {
+    res.render('index', { user: req.user });
 });
-app.get('/login', function(req, res){
-  res.render('index', { user: req.user });
-});
-app.get('/users', user.list);
+
+// Login
+app.get('/login', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // JSON API
@@ -142,7 +146,7 @@ app.post('/api/addName', api.addName);
 app.delete('/api/name/:id', api.deleteName);
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+app.get('*', ensureAuthenticated, routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
