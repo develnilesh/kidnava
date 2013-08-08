@@ -7,7 +7,6 @@ var data_inmemeory = {names: []};
 angular.module('kidnava.controllers', []).
 
 controller('IndexCtrl', function($scope, $http) {
-  $scope.user = 
 }).
 controller('LoginCtrl', function($scope) {
   $scope.title="Kidnava";
