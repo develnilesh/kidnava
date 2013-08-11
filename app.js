@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -7,9 +6,17 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , passport = require('passport')
-  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+  , login = require('./app/server/utils/loginutil')
+  , user = require('./app/server/db/user')
+  , mongoose = require('mongoose');
 
 var app = express();
+
+
+var mongodbURI = 'mongodb://@localhost:27017/kidnava';
+mongoose.connect(mongodbURI);
+
 
 // App configuration
 app.configure(function(){
@@ -23,6 +30,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.cookieParser('your secret here'));
+  // IMPORTANT: This should come before passport.session().
   app.use(express.session());
 
   app.use(express.bodyParser());
@@ -51,6 +59,7 @@ if ('development' == app.get('env')) {
 // Production only
 app.configure('production', function(){
   app.use(express.errorHandler());
+  app.use(express.csrf());
 });
 
 
@@ -62,11 +71,13 @@ app.configure('production', function(){
 //   have a database of user records, the complete Google profile is
 //   serialized and deserialized.
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+passport.deserializeUser(function(id, done) {
+  user.findById(id, function (err, user){
+    done(err, user);
+  });
 });
 
 passport.use(new GoogleStrategy({
@@ -75,18 +86,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://ec2-54-213-102-86.us-west-2.compute.amazonaws.com:8080/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      
-      // To keep the example simple, the user's Google profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Google account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    login.loginOrCreate('google', profile, done);    
   }
 ));
 

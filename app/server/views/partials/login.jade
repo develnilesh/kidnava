@@ -11,8 +11,7 @@ div(ng-controller="LoginCtrl")
           legend
             div.signInTitle.
                 Sign In
-          a(href="/auth/google")
-            div#gSignInWrapper
+          div#gSignInWrapper(ng-click="onClick()")
             div#customBtn.customGPlusSignIn
               span.icon
               span.buttonText Google

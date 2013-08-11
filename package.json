@@ -9,7 +9,12 @@
     "express": "3.3.4",
     "stylus": "*",
     "jade": ">= 0.0.1", 
+    "mongoose": "3.0.x",
+    "uuid-v4": "0.0.x",
+    "express-useragent": "0.0.x",
     "passport": "*",
-    "passport-google-oauth": "*"
+    "passport-local": "*",
+    "passport-google-oauth": "*",
+    "passport-facebook": "*"
   }
 }
