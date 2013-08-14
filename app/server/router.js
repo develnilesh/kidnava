@@ -45,7 +45,6 @@ app.get('/logout', function(req, res){
 app.get('/',
   ensureAuthenticated,
   function(req, res) {
-    console.log('user: ' + req.user );
     res.render('index', { user: req.user.first });
 });
 
@@ -54,8 +53,8 @@ app.get('/login', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // JSON API
-app.post('/api/addName', api.addName);
-app.delete('/api/name/:id', api.deleteName);
+app.post('/api/addSuggestion', ensureAuthenticated, api.addSuggestion);
+app.get('/api/names/:prefix', ensureAuthenticated, api.getNames);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', ensureAuthenticated, routes.index);

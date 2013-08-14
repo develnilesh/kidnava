@@ -2,11 +2,10 @@
 
 /* Controllers */
 
-var data_inmemeory = {names: []};
-
 angular.module('kidnava.controllers', []).
 
 controller('IndexCtrl', function($scope, $http, $location) {
+  $location.path('/addName');
 }).
 controller('LoginCtrl', function($scope, $location) {
   $scope.title="Kidnava";
@@ -15,12 +14,27 @@ controller('LoginCtrl', function($scope, $location) {
   }
 }).
 controller('AddNameCtrl', function($scope, $http, $location) {
-  $scope.form = {};
-  $scope.submitPost = function () {
-    $http.post('/api/addName', $scope.form).
+  console.log('name:' + $scope.suggestion + ' form:' +  $scope.form);
+  $scope.suggestions = [];
+  $scope.names = [];
+  $scope.addSuggestion = function (suggestion) {
+    var data = {
+      name: $scope.suggestion.name,
+      note: $scope.suggestion.note
+    };
+    $http.post('/api/addSuggestion', data).
       success(function(data) {
-        data_inmemeory.names.push(data);
-        $location.path('/');
+        $scope.suggestions = data; 
       });
   };
+
+  $scope.nameChange = function() {
+    if ($scope.suggestion.name &&
+        $scope.suggestion.name.length > 3) {
+      $http.get('api/names/' + $scope.suggestion.name).
+        success(function(names) {
+          $scope.names = names;
+        });
+    }
+  }
 });

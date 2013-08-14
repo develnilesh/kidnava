@@ -1,13 +1,17 @@
-var data = { names: []}
+var Suggestion = require('../utils/suggestionutil');
+var Name = require('../utils/nameutils');
 
-// POST
-// Adds a Name to the inmemory data 
-exports.addName = function (req, res) {
-  data.names.push(req.body);
-  res.json(req.body);
+// Adds a names to the database.
+exports.addSuggestion = function (req, res) {
+  var result = Suggestion.addSuggestion(req.user.id, req.body);
+  Suggestion.getAll(req.user.id, function(err, suggestions) {
+      res.json(200, suggestions);
+  });
 };
 
 // TODO: Add functionailty 
-exports.deleteName = function (req, res) {
-  res.json(true);
+exports.getNames = function (req, res) {
+  Name.getAll(req.params.prefix, function(err, names) {
+      res.json(200, names);
+  });
 };
