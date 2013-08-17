@@ -13,6 +13,9 @@ controller('LoginCtrl', function($scope, $location) {
      location.href = '/auth/google';
   }
 }).
+controller('WelcomeCtrl', function($scope) {
+  console.log($scope);
+}).
 controller('AddNameCtrl', function($scope, $http, $location) {
   console.log('name:' + $scope.suggestion + ' form:' +  $scope.form);
   $scope.suggestions = [];

@@ -45,7 +45,7 @@ app.get('/logout', function(req, res){
 app.get('/',
   ensureAuthenticated,
   function(req, res) {
-    res.render('index', { user: req.user.first });
+    res.render('index', { user: req.user });
 });
 
 // Login

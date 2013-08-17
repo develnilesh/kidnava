@@ -15,6 +15,8 @@ var UserSchema = new Schema({
   hashed_password: { type: String },
   gender: { type: String, required: true, default: 'unknown',
     enum: GENDER },
+  parent_to: { type: [Schema.Types.ObjectId] },
+  guardian_to: { type: [Schema.Types.ObjectId] },
   google: {},
   facebook: {}
 });

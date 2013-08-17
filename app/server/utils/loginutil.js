@@ -25,6 +25,7 @@ exports.loginOrCreate = function(provider, profile, done) {
       });
     
     } else {
+      console.log(user);
       return done(null, user);
     }});
 };

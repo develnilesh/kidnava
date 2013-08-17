@@ -5,8 +5,9 @@ angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.direc
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'partials/index',
-        controller: 'IndexCtrl'
+        templateUrl: 'partials/welcome',
+        controller: 'WelcomeCtrl'
+        //controller: 'IndexCtrl'
       }).
       when('/addName', {
         templateUrl: 'partials/addName',
