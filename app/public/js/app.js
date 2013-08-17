@@ -9,6 +9,10 @@ angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.direc
         controller: 'WelcomeCtrl'
         //controller: 'IndexCtrl'
       }).
+      when('/addBaby', {
+        templateUrl: 'partials/addBaby',
+        controller: 'AddBabyCtrl'
+      }).
       when('/addName', {
         templateUrl: 'partials/addName',
         controller: 'AddNameCtrl'

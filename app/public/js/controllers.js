@@ -14,7 +14,11 @@ controller('LoginCtrl', function($scope, $location) {
   }
 }).
 controller('WelcomeCtrl', function($scope) {
-  console.log($scope);
+}).
+controller('AddBabyCtrl', function($scope) {
+  $scope.addYourBaby = function(baby) {
+    console.log(baby);
+  }
 }).
 controller('AddNameCtrl', function($scope, $http, $location) {
   console.log('name:' + $scope.suggestion + ' form:' +  $scope.form);

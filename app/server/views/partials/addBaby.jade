@@ -1,0 +1,22 @@
+h2 Add your Baby
+form.form-horizontal(name="addBabyForm")
+  div.control-group
+    label.control-label Spouse Email:
+    div.controls
+      input(type="text", ng-model="baby.parent", placeholder="Spouse Email")
+  div.control-group
+    label.control-label Gender:
+    div.controls
+      input(type="radio", ng-model="baby.gender", value="girl", checked=false)
+      | Girl 
+      input(type="radio", ng-model="baby.gender", value="boy", checked=false)
+      | Boy 
+      input(type="radio", ng-model="baby.gender", value="secret", checked=true)
+      | Secret 
+  div.control-group
+    label.control-label Friend Emails:
+    div.controls
+      input(type="text", ng-model="baby.guardians", placeholder="comma-separated")
+  div.control-group
+    div.controls
+      button(ng-click="addYourBaby(baby)") Add
