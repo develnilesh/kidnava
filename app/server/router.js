@@ -53,6 +53,7 @@ app.get('/login', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // JSON API
+app.post('/api/addBaby', ensureAuthenticated, api.addBaby);
 app.post('/api/addSuggestion', ensureAuthenticated, api.addSuggestion);
 app.get('/api/names/:prefix', ensureAuthenticated, api.getNames);
 

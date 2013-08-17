@@ -1,5 +1,12 @@
 var Suggestion = require('../utils/suggestionutil');
 var Name = require('../utils/nameutils');
+var Baby = require('../utils/babyutils');
+
+// Adds a baby to the DB
+exports.addBaby = function (req, res) {
+  var result = Baby.addBaby(req.user.id, req.body);
+  res.json(200);
+};
 
 // Adds a names to the database.
 exports.addSuggestion = function (req, res) {
