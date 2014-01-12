@@ -3,6 +3,8 @@
 var Baby = require('../db/baby');
 
 exports.addBaby = function(userId, babyData) {
+console.log(userId);
+console.log(babyData);
 /*  var suggestion = new Suggestion({
     name: suggestionData.name,
     note: suggestionData.note,

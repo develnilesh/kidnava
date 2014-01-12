@@ -15,10 +15,14 @@ controller('LoginCtrl', function($scope, $location) {
 }).
 controller('WelcomeCtrl', function($scope) {
 }).
-controller('AddBabyCtrl', function($scope, $http) {
-  
+controller('AddBabyCtrl', function($scope, $http, $location) {
   $scope.addYourBaby = function(baby) {
     console.log(baby);
+      //$location.href='/';
+    $http.post('/api/addBaby', baby).
+    success(function(data) {
+      $location.path('/');
+    });
   }
   var knownEmails;
   $scope.onSpouseChange = function() {

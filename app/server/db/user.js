@@ -17,6 +17,7 @@ var UserSchema = new Schema({
     enum: GENDER },
   parent_to: { type: [Schema.Types.ObjectId] },
   guardian_to: { type: [Schema.Types.ObjectId] },
+  active: { type: Boolean, default: false },
   google: {},
   facebook: {},
   access_token: { type: String },
