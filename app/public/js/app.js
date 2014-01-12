@@ -1,7 +1,11 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.directives','kidnava.controllers']).
+angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.directives','kidnava.controllers'])
+  .config(function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  }).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {

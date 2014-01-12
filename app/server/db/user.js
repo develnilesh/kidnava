@@ -13,12 +13,14 @@ var UserSchema = new Schema({
   first:{ type: String, required: true, trim: true },
   last:{ type: String, required: true, trim: true },
   hashed_password: { type: String },
-  gender: { type: String, required: true, default: 'unknown',
+  gender: { type: String, default: 'unknown',
     enum: GENDER },
   parent_to: { type: [Schema.Types.ObjectId] },
   guardian_to: { type: [Schema.Types.ObjectId] },
   google: {},
-  facebook: {}
+  facebook: {},
+  access_token: { type: String },
+  refresh_token: { type: String }
 });
 
 UserSchema.virtual('id')

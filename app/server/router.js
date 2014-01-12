@@ -13,8 +13,9 @@ module.exports = function(app) {
 //   redirecting the user to google.com.  After authorization, Google
 //   will redirect the user back to this application at /auth/google/callback
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                                            'https://www.googleapis.com/auth/userinfo.email'] }),
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 
+					    'https://www.googleapis.com/auth/userinfo.profile',
+					    'https://www.googleapis.com/auth/userinfo.email'] }),
   function(req, res){
     // The request will be redirected to Google for authentication, so this
     // function will not be called.
@@ -55,6 +56,9 @@ app.get('/partials/:name', routes.partials);
 // JSON API
 app.post('/api/addSuggestion', ensureAuthenticated, api.addSuggestion);
 app.get('/api/names/:prefix', ensureAuthenticated, api.getNames);
+
+// Third-party get info
+app.get('/api/getContacts', ensureAuthenticated, api.getContacts);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', ensureAuthenticated, routes.index);

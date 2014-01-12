@@ -3,9 +3,8 @@
 var uuid = require('uuid-v4');
 var User = require('../db/user');
 
-exports.loginOrCreate = function(provider, profile, done) {
+exports.loginOrCreate = function(provider, profile, accessToken, refreshToken, done) {
   var providerId = {};
-  debugger;
   providerId[provider + '.id'] = profile.id;
 
   //find by oauth2 provider
@@ -16,16 +15,21 @@ exports.loginOrCreate = function(provider, profile, done) {
               first: profile.name.givenName || profile.given_name
             , last: profile.name.familyName || profile.family_name
             , email: profile.emails[0].value
-            , gender: profile.gender || profile._json.gender
+            , gender: profile.gender || profile._json.gender || 'unknown'
             , password: uuid()
           });
       user[provider] = profile._json;
+      user.access_token = accessToken;
+      user.refresh_token = refreshToken;
       user.save(function(err) {
 	return done(err, user);
       });
-    
     } else {
-      console.log(user);
-      return done(null, user);
+      user.access_token = accessToken;
+      user.refresh_token = refreshToken;
+      user.save(function(err, data) {
+        if (err) { return done(err); }
+        return done(err, data);
+      });
     }});
 };

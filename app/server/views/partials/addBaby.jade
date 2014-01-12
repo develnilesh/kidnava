@@ -3,7 +3,7 @@ form.form-horizontal(name="addBabyForm")
   div.control-group
     label.control-label Spouse Email:
     div.controls
-      input(type="text", ng-model="baby.parent", placeholder="Spouse Email")
+      input(type="text", ng-model="baby.parent", ng-change="onSpouseChange()", bs-typeahead="knownEmails", placeholder="Spouse Email")
   div.control-group
     label.control-label Gender:
     div.controls

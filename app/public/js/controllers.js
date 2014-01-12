@@ -15,10 +15,33 @@ controller('LoginCtrl', function($scope, $location) {
 }).
 controller('WelcomeCtrl', function($scope) {
 }).
-controller('AddBabyCtrl', function($scope) {
+controller('AddBabyCtrl', function($scope, $http) {
+  
   $scope.addYourBaby = function(baby) {
     console.log(baby);
   }
+  var knownEmails;
+  $scope.onSpouseChange = function() {
+    if (!knownEmails) {
+      $http.get('api/getContacts/').
+          success(function(results) {
+            var contacts = results;
+            if (!contacts) return [];
+            knownEmails = contacts.map(function(contact) {
+		return contact.name;
+	    });
+          });
+    }
+  }
+}).
+controller('StartScreenCtrl', function($scope, $location) {
+  $scope.nameChild = function() {
+     location.path('/addName')
+  }
+  $http.get('childrenName')
+    .success(function(data) {
+      $scope.children = data;
+    });
 }).
 controller('AddNameCtrl', function($scope, $http, $location) {
   console.log('name:' + $scope.suggestion + ' form:' +  $scope.form);
@@ -37,7 +60,7 @@ controller('AddNameCtrl', function($scope, $http, $location) {
 
   $scope.nameChange = function() {
     if ($scope.suggestion.name &&
-        $scope.suggestion.name.length > 3) {
+        $scope.suggestion.name.length > 2) {
       $http.get('api/names/' + $scope.suggestion.name).
         success(function(names) {
           $scope.names = names;

@@ -83,10 +83,11 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
     clientID: process.argv[2],
     clientSecret: process.argv[3],
-    callbackURL: "http://ec2-54-213-102-86.us-west-2.compute.amazonaws.com:8080/auth/google/callback"
+    callbackURL: "http://ec2-54-213-102-86.us-west-2.compute.amazonaws.com:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    login.loginOrCreate('google', profile, done);    
+    console.log("accessToken:" + accessToken);
+    login.loginOrCreate('google', profile, accessToken, refreshToken, done);    
   }
 ));
 
