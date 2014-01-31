@@ -1,41 +1,78 @@
+span.label {
+  font-weight: bold;
+}
+
 #customBtn {
   display: inline-block;
-      background: #dd4b39;
-      color: white;
-      width: 165px;
-      border-radius: 5px;
-      white-space: nowrap;
-    }
-    #customBtn:hover {
-      background: #e74b37;
-      cursor: hand;
-    }
-    span.label {
-      font-weight: bold;
-    }
-    span.icon {
-      background: url('https://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 35px;
-      height: 35px;
-      border-right: #bb3f30 1px solid;
-    }
-    span.buttonText {
-      display: inline-block;
-      vertical-align: middle;
-      padding-left: 35px;
-      padding-right: 35px;
-      font-size: 14px;
-      font-weight: bold;
-      /* Use the Roboto font that is loaded in the <head> */
-      font-family: 'Roboto',arial,sans-serif;
-    }
+  color: white;
+  width: 80%;
+  height: 45px;
+  border-radius: 3px;
+  white-space: nowrap;
+  margin-bottom: 10px;
+}
 
-.signInTitle {
+.goog_btn {
+  background: #dd4b39;
+}
+
+span.google {
+  background: url('https://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 5px 50% no-repeat;
+  background-size: 32px;
+}
+
+
+.fb_btn {
+  background: #3b5999;
+}
+
+span.fb {
+  background: url('/img/fb_logo.png') transparent 5px 50% no-repeat;
+  background-size: 32px;
+}
+
+#customBtn:hover {
+  cursor: hand;
+}
+
+span.icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 45px;
+  border-right: whitesmoke 1px solid;
+  float: left;
+}
+
+span.buttonText {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-size: 14px;
+  font-weight: bold;
+  /* Use the Roboto font that is loaded in the <head> */
+  font-family: 'Roboto',arial,sans-serif;
+  line-height: 45px;
+  text-align: center;
+}
+
+.loginpage {
+  background: url(/img/login_page.png) repeat;
+  height: 800px;
+}
+
+.signInTitle .title{
   font-family: Roboto, Helvetica;
 }
 
+.title {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-wight: bold;
+  width: 100%;
+  padding-left: 20px;
+}
 .loginContainer {
   padding: 20px 10px;
+  max-width: 400px;
 }

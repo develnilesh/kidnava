@@ -1,20 +1,22 @@
 div(ng-controller="LoginCtrl")
-  div.span4
-    div.row-fluid
-      div.span2
-      
-        legend
-          div.title
-             | {{title}}
-      div.row.loginContainer
+  div.loginpage
+    legend
+      div.title
+          | {{title}}
+    center
+      div.loginContainer
         div.well
           legend
             div.signInTitle.
                 Sign In
           div#gSignInWrapper(ng-click="onClick()")
-            div#customBtn.customGPlusSignIn
-              span.icon
-              span.buttonText Google
+            div#customBtn.goog_btn
+              span.icon.google
+              span.buttonText Log in with Google
+          div#fSignInWrapper(ng-click="onClick()")
+            div#customBtn.fb_btn
+              span.icon.fb
+              span.buttonText Log in with Facebook
 
   link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto', type="text/css")
   link(rel='stylesheet', href='/stylesheets/login.css')   
