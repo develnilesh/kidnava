@@ -1,22 +1,29 @@
-h2 Add your Baby
-form.form-horizontal(name="addBabyForm")
-  div.control-group
-    label.control-label Spouse Email:
-    div.controls
-      input(type="text", ng-model="baby.parent", ng-change="onSpouseChange()", bs-typeahead="knownEmails", placeholder="Spouse Email")
-  div.control-group
-    label.control-label Gender:
-    div.controls
-      input(type="radio", ng-model="baby.gender", value="girl", checked=false)
-      | Girl 
-      input(type="radio", ng-model="baby.gender", value="boy", checked=false)
-      | Boy 
-      input(type="radio", ng-model="baby.gender", value="secret", checked=true)
-      | Secret 
-  div.control-group
-    label.control-label Friend Emails:
-    div.controls
-      input(type="text", ng-model="baby.guardians", placeholder="comma-separated")
-  div.control-group
-    div.controls
-      button(ng-click="addYourBaby(baby)") Add
+div
+    legend
+      h2 Add your Baby
+    form.form-horizontal(name="addBabyForm")
+      div.control-group
+        label.control-label Spouse Email:
+        div.controls
+          input(type="text", ng-model="baby.parent", ng-change="onSpouseChange()", bs-typeahead="knownEmails", placeholder="Spouse Email")
+      div.control-group
+        label.control-label Gender:
+        div.controls
+          input.gender_input(type="radio", ng-model="baby.gender", value="girl", checked=false)
+          | Girl 
+          br
+          input.gender_input(type="radio", ng-model="baby.gender", value="boy", checked=false)
+          | Boy 
+          br
+          input.gender_input(type="radio", ng-model="baby.gender", value="secret", checked=true)
+          | Secret 
+          br
+      div.control-group
+        label.control-label Friend Emails:
+        div.controls
+          input(type="text", ng-model="baby.guardians", placeholder="comma-separated")
+      div.form-actions
+        button.btn.btn-primary(type=submit,ng-click="addYourBaby(baby)") Add Child
+        &nbsp;
+        button.btn Cancel
+  link(rel='stylesheet', href='/stylesheets/add_baby.css')   
