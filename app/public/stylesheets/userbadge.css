@@ -1,0 +1,20 @@
+.userInfo {
+  float: right;
+  padding: 5px;
+  border: 1px;
+  width: 150px;
+  height: 70px;
+}
+
+.userImage {
+  float: left;
+  height: 25px;
+  width: 25px;
+  padding: 3px;
+}
+
+.userName {
+  font-family: Roboto,Helvatica;
+  font-size: 16px;
+  line-height: 40px;
+}

@@ -6,6 +6,11 @@ angular.module('kidnava.controllers', []).
 
 controller('IndexCtrl', function($scope, $http, $location) {
   $location.path('/addName');
+  $http.get('api/getUserInfo/').
+          success(function(results) {
+            var userInfo = results;
+            
+          });
 }).
 controller('LoginCtrl', function($scope, $location) {
   $scope.title="Kidnava";

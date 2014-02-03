@@ -58,5 +58,18 @@ exports.getContacts = function (req, res) {
             res.send(200, peopleList);
         });
       
-  }).on('error', function (err) { console.log(err); self.res.send(404, 'Error occured:' + err )} );
+  }).on('error', function (err) { 
+    console.log(err);
+    self.res.send(404, 'Error occured:' + err );
+   });
+};
+
+exports.getUserInfo = function (req, res) {
+  var user = {
+    first: req.user.first,
+    last: req.user.last,
+    picture: req.user.picture,
+    email: req.user.email
+  };
+  res.send(user);
 };

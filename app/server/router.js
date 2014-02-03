@@ -15,7 +15,8 @@ module.exports = function(app) {
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 
 					    'https://www.googleapis.com/auth/userinfo.profile',
-					    'https://www.googleapis.com/auth/userinfo.email'] }),
+					    'https://www.googleapis.com/auth/userinfo.email',
+                                            'https://www.google.com/m8/feeds'] }),
   function(req, res){
     // The request will be redirected to Google for authentication, so this
     // function will not be called.
@@ -25,6 +26,7 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
+    console.log('login:' + res);
     res.redirect('/');
   });
 
@@ -57,6 +59,9 @@ app.get('/partials/:name', routes.partials);
 app.post('/api/addBaby', ensureAuthenticated, api.addBaby);
 app.post('/api/addSuggestion', ensureAuthenticated, api.addSuggestion);
 app.get('/api/names/:prefix', ensureAuthenticated, api.getNames);
+
+// Get user info from g+ conect
+app.get('/api/getUserInfo', ensureAuthenticated, api.getUserInfo);
 
 // Third-party get info
 app.get('/api/getContacts', ensureAuthenticated, api.getContacts);
