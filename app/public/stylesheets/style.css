@@ -12,3 +12,18 @@ a {
   font-weight: bold;
   padding: 5px;
 }
+
+input.ng-invalid {
+  border: 1px solid red;
+  background: rgba(255,0,0,0.2);
+}
+
+input.ng-valid {
+  border: 1px solid green;
+  background: rgba(0,255,0,0.2);
+}
+
+input.ng-pristine {
+  border: 1px solid green;
+  background: none;
+}
