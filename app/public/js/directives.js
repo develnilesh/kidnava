@@ -8,7 +8,7 @@ angular.module('kidnava.directives', []).
      return function(scope, elm, attrs) {
        elm.text(version);
      };
-}])
+  }])
   .directive('userbadge', function(userservice) { 
     return {
       restrict: 'E',
@@ -20,9 +20,15 @@ angular.module('kidnava.directives', []).
           scope.userImage = userData.picture;
           scope.userFirst = userData.first;
           scope.userLast = userData.last;
-          console.log("Info:" + userData);  
+          elem.find('img')[0].src = userData.picture;
         });
       },
       templateUrl: 'partials/userinfo'
     }
-});
+  })
+  .directive('appnavigation', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/navbar'
+    }
+  });

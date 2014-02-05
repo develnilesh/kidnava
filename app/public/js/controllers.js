@@ -18,6 +18,11 @@ controller('LoginCtrl', function($scope, $location) {
      location.href = '/auth/google';
   }
 }).
+controller('LogoutCtrl', function($scope, $location) {
+  $scope.logoutClick = function() {
+     location.href = '/logout';
+  }
+}).
 controller('WelcomeCtrl', function($scope) {
 }).
 controller('AddBabyCtrl', function($scope, $http, $location) {
@@ -76,4 +81,7 @@ controller('AddNameCtrl', function($scope, $http, $location) {
         });
     }
   }
+})
+.controller('NavBarCtrl', function($scope) {
+  $scope.isCollapsed = true;
 });

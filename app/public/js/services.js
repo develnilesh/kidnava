@@ -12,6 +12,7 @@ angular.module('kidnava.services', []).
     return {
       getUserInfo: function() {
         if (userData) return $q.when(userData);
+        console.log("Fetching user data");
         return $http.get('/api/getUserInfo').
           then(function(response) {
             userData = response;  

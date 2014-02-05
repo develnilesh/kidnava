@@ -1,23 +1,27 @@
-userbadge
-div.title Suggest a Name
-form(name="suggestion")
-  label.
-    Name:
-  input(type="text", ng-model="suggestion.name", ng-change="nameChange()", required)
-  label.
-    Note:
-  input(type="text", ng-model="suggestion.note")
-  button(ng-click="addSuggestion(suggestion)") Save
-  button(ng-click="resetSuggestion()") Reset
-
-h2.
-  Names starting with: {{suggestion.name}}
-div
-  span(style="padding-right: 4px", ng-repeat="name in names").
-    {{name}}
-
-h2.
-  Previous Suggestions
-div
-  li(ng-repeat="suggested in suggestions").
-    {{suggested}}
+appnavigation
+div 
+  div.title Suggest a Name
+  form.form-horizontal.form_wide(role="form", name="suggestion")
+    div.form-group
+      label.col-sm-2.control-label Name
+      div.col-sm-10
+        input.form-control(type="text", ng-model="suggestion.name", ng-change="nameChange()", style="max-width: 300px;", required)
+    div.form-group
+      label.col-sm-2.control-label Notes
+      div.col-sm-10
+        textarea.form-control(rows=3, ng-model="suggestion.note")
+    div.form-actions.col-sm-offset-2.col-sm-10
+      button.btn.btn-primary(type="submit", ng-click="addSuggestion(suggestion)", ng-disabled="suggestion.$invalid") Save
+      &nbsp;
+      button.btn(ng-click="resetSuggestion()") Reset
+  br
+  br
+  div.title Names starting with: {{suggestion.name}}
+  div
+    span(style="padding-right: 4px", ng-repeat="name in names").
+      {{name}}
+  div.title Previous Suggestions
+  div
+    li(ng-repeat="suggested in suggestions").
+      {{suggested}}
+link(rel='stylesheet', href='/stylesheets/add_baby.css')   

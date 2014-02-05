@@ -5,18 +5,20 @@ html(ng-app="kidnava")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     base(href='/')
     title Kidnava App
-    link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.css');
-    link(rel='stylesheet', href='/stylesheets/userbadge.css');
-    link(rel='stylesheet', href='/stylesheets/style.css');
+    link(rel='stylesheet', href='stylesheets/bootstrap-3.1.0/dist/css/bootstrap.min.css');
+    link(rel='stylesheet', href='stylesheets/userbadge.css');
+    link(rel='stylesheet', href='stylesheets/style.css');
   body
     block body
 
-  script(src='ext/angular-1.0.7/angular.js')
+  script(src='ext/jquery-2.0.2.min.js')
+  script(src='ext/angular-1.2.11/angular.min.js')
+  script(src="ext/angular-1.2.11/angular-route.min.js")
+  script(src='ext/ui-bootstrap-tpls-0.10.0.min.js')
+  script(src='ext/bootstrap-3.1.0/dist/js/bootstrap.min.js')
+  script(src="https://apis.google.com/js/client:plusone.js", type="text/javascript")
   script(src='js/app.js')
   script(src='js/services.js')
   script(src='js/controllers.js')
   script(src='js/filters.js')
   script(src='js/directives.js')
-  script(src="https://apis.google.com/js/client:plusone.js", type="text/javascript")
-  script(src="ext/angular-1.0.7/angular-bootstrap.min.js", type="text/javascript")
-  script(src="ext/angular-1.0.7/angular-strap.min.js", type="text/javascript")

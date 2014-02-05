@@ -1,0 +1,8 @@
+div.userInfo(ng-show="hasUserInfo")
+    img.userImage(ng-model="userImage")
+    span.userName(ng-model="userFirst")
+       | {{userFirst}} {{userLast}}
+    br
+    span(ng-controller="LogoutCtrl")
+       span(ng-click="logoutClick()")
+         a Sign out

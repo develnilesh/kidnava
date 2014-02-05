@@ -1,14 +1,14 @@
-userbadge
+appnavigation  
 div
     div.title Add your Baby
-    form.form-horizontal(name="addBabyForm")
-      div.control-group
-        label.control-label Spouse Email:
-        div.controls
-          input(type="email",required, ng-model="baby.parent", ng-change="onSpouseChange()", bs-typeahead="knownEmails", placeholder="Spouse Email")
-      div.control-group
-        label.control-label Gender:
-        div.controls
+    form.form-horizontal.form_wide(role="form", name="addBabyForm")
+      div.form-group
+        label.col-sm-2.control-label Spouse Email
+        div.col-sm-10
+          input.form-control(type="email",required, ng-model="baby.parent", ng-change="onSpouseChange()", bs-typeahead="knownEmails", placeholder="Spouse Email")
+      div.form-group
+        label.col-sm-2.control-label Gender
+        div.col-sm-10.controls
           input.gender_input(type="radio", ng-model="baby.gender", name="baby", value="girl")
           | Girl 
           br
@@ -18,12 +18,12 @@ div
           input.gender_input(type="radio", ng-model="baby.gender", name="baby", value="secret", checked)
           | Secret 
           br
-      div.control-group
-        label.control-label Friend Emails:
-        div.controls
-          input(type="text", ng-model="baby.guardians", placeholder="comma-separated")
-      div.form-actions
+      div.form-group
+        label.col-sm-2.control-label Friend Emails:
+        div.col-sm-10
+          input.form-control(type="text", ng-model="baby.guardians", placeholder="comma-separated")
+      div.form-actions.col-sm-offset-2.col-sm-10
         button.btn.btn-primary(type=submit,ng-click="addYourBaby(baby)", ng-disabled="addBabyForm.$invalid") Add Child
         &nbsp;
         button.btn Cancel
-  link(rel='stylesheet', href='/stylesheets/add_baby.css')   
+link(rel='stylesheet', href='/stylesheets/add_baby.css')   
