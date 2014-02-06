@@ -13,6 +13,10 @@ angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.direc
         controller: 'WelcomeCtrl'
         //controller: 'IndexCtrl'
       }).
+      when('/register', {
+        templateUrl: 'partials/register',
+        controller: 'registerUserCtrl'
+      }).
       when('/addBaby', {
         templateUrl: 'partials/addBaby',
         controller: 'AddBabyCtrl'

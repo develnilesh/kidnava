@@ -4,11 +4,11 @@
 
 
 angular.module('kidnava.directives', []).
-  directive('appVersion', ['version', function(version) {
+  directive('appVersion', function(version) {
      return function(scope, elm, attrs) {
        elm.text(version);
      };
-  }])
+  })
   .directive('userbadge', function(userservice) { 
     return {
       restrict: 'E',
@@ -24,11 +24,34 @@ angular.module('kidnava.directives', []).
         });
       },
       templateUrl: 'partials/userinfo'
-    }
+    };
   })
   .directive('appnavigation', function() {
     return {
       restrict: 'E',
       templateUrl: 'partials/navbar'
-    }
+    };
+  })
+  .directive('ensureUnique', function($http, $timeout) {
+    var checking = null;
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ctrl) {
+        element.bind('blur', function(evt) {
+          if (ctrl.$pristine || !ctrl.$viewValue ||
+              ctrl.$error.email)
+            return;
+          $http({
+            method: 'GET',
+            url: '/api/isNewUsername/' + ctrl.$viewValue
+          }).success(function(response) {
+            ctrl.$setValidity('unique', response.isnew);
+          }).error(function(err) {
+            ctrl.$setValidity('unique', false);
+          });
+        });
+      }
+    };
   });
+
+

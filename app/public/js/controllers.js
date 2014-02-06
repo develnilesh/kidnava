@@ -25,6 +25,23 @@ controller('LogoutCtrl', function($scope, $location) {
 }).
 controller('WelcomeCtrl', function($scope) {
 }).
+controller('registerUserCtrl', function($scope, $http, $location) {
+  $scope.showRetry = false;
+  $scope.registerUser = function(user) {
+    console.log(user);
+    $http.post('/api/registerUser', user).
+      success(function(response) {
+        if (response.registered) {
+          $location.path('/login');
+        } else {
+          $scope.showRetry = true;
+        }
+    });
+  }
+  $scope.cancelRegister = function() {
+    location.href = '/';
+  }
+}).
 controller('AddBabyCtrl', function($scope, $http, $location) {
   $scope.addYourBaby = function(baby) {
     console.log(baby);

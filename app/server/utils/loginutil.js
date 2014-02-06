@@ -35,3 +35,44 @@ exports.loginOrCreate = function(provider, profile, accessToken, refreshToken, d
       });
     }});
 };
+
+exports.registerLocalUser = function(newUser, callback) {
+  User.findOne({email: newUser.username}, function(err, user) {
+    if (err) { callback(false); }
+    if (!user) {
+      user = new User({
+              first: newUser.first
+            , last: newUser.last
+            , email: newUser.username
+            , gender: newUser.gender
+            , hashed_password: newUser.password
+          });
+      console.log('created profile:' + user);
+      user.save(function(err) {
+	callback(true);
+      });
+    } else {
+      callback(false);
+    }
+  });
+};
+
+exports.verifyLocalLogin = function (username, password, done) {
+  User.findOne({ email: username }, function (err, user) {
+    if (err) { return done(err); }
+    if (!user) { return done(null, false); }
+    if (!user.verifyPassword(password)) { return done(null, false); }
+    return done(null, user);
+  });
+};
+
+exports.isNewUsername = function (username, callback) {
+  User.findOne({ email: username }, function (err, user) {
+    if (err) { callback(false, "Failed query"); }
+    if (!user) {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  });
+};

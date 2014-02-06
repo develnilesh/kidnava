@@ -38,6 +38,12 @@ app.post('/login',
       res.render('login');
 });
 
+app.post('/lcllogin', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/login');
@@ -53,10 +59,14 @@ app.get('/',
 
 // Login
 app.get('/login', routes.index);
+app.get('/register', routes.register);
 app.get('/partials/:name', routes.partials);
+app.get('/api/isNewUsername/:username', api.isNewUsername);
+
 
 // JSON API
 app.post('/api/addBaby', ensureAuthenticated, api.addBaby);
+app.post('/api/registerUser', api.addUser);
 app.post('/api/addSuggestion', ensureAuthenticated, api.addSuggestion);
 app.get('/api/names/:prefix', ensureAuthenticated, api.getNames);
 
@@ -65,6 +75,7 @@ app.get('/api/getUserInfo', ensureAuthenticated, api.getUserInfo);
 
 // Third-party get info
 app.get('/api/getContacts', ensureAuthenticated, api.getContacts);
+
 
 // redirect all others to the index (HTML5 history)
 app.get('*', ensureAuthenticated, routes.index);
@@ -79,4 +90,4 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-}
+};

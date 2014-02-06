@@ -7,6 +7,7 @@ var express = require('express')
   , path = require('path')
   , passport = require('passport')
   , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
+  , LocalStrategy = require('passport-local').Strategy
   , login = require('./app/server/utils/loginutil')
   , user = require('./app/server/db/user')
   , mongoose = require('mongoose');
@@ -88,6 +89,12 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
     console.log("accessToken:" + accessToken);
     login.loginOrCreate('google', profile, accessToken, refreshToken, done);    
+  }
+));
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    login.verifyLocalLogin(username, password, done);
   }
 ));
 

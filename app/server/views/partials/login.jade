@@ -17,6 +17,21 @@ div(ng-controller="LoginCtrl")
             div#customBtn.fb_btn
               span.icon.fb
               span.buttonText Log in with Facebook
+          center: p Login with username and password
+          form.col-sm-8.form-horizontal.form_wide(role=form, name="login", action="/lcllogin", method="post")
+            div.form-group
+              label.sr-only.control-label Username
+              div.col-sm-12.controls
+                input.form-control(type="email", required, name="username", placeholder="Email")
+            div.form-group
+              label.sr-only.control-label Username
+              div.col-sm-12.controls
+                input.form-control(type="password", required, name="password", placeholder="Password")
+            div.form-actions
+              button.btn.btn-primary.col-sm-12(type=subit, ng-click="true", ng-disabled="login.$invalid") Log In
+          div
+            a(href="/register") New User?
 
   link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto', type="text/css")
   link(rel='stylesheet', href='/stylesheets/login.css')   
+  link(rel='stylesheet', href='/stylesheets/add_baby.css')   

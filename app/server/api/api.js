@@ -2,6 +2,7 @@ var Suggestion = require('../utils/suggestionutil');
 var Name = require('../utils/nameutils');
 var https = require('https');
 var Baby = require('../utils/babyutils');
+var Login = require('../utils/loginutil');
 
 // Adds a baby to the DB
 exports.addBaby = function (req, res) {
@@ -72,4 +73,27 @@ exports.getUserInfo = function (req, res) {
     email: req.user.email
   };
   res.send(user);
+};
+
+exports.addUser= function(req, res) {
+  console.log(req.body);
+  var user = req.body;
+  Login.registerLocalUser(user, function(done) {
+    if (done) {
+      res.json({registered: true});
+    } else {
+      res.json({registered: false});
+    }
+  });
+};
+
+exports.isNewUsername = function(req, res) {
+  var username = req.params.username;
+  Login.isNewUsername(username, function(isNew, error) {
+    if (isNew) {
+      res.json({isnew: true});
+    } else {
+      res.json({isnew: false, err: error});
+    }
+  });
 };

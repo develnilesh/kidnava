@@ -30,4 +30,9 @@ UserSchema.virtual('id')
       return this._id.toHexString();
 });
 
+UserSchema.methods.verifyPassword = function(password) {
+  // Improve this by making it a salted hashed password check
+  return this.hashed_password = password;
+};
+
 module.exports = mongoose.model('User', UserSchema);
