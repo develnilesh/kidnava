@@ -1,0 +1,26 @@
+div
+  div.title Register
+  div.alert.alert-info(ng-show="showRetry")
+    | We are having some problems. Please retry again. 
+  form.form-horizontal.form_wide(role="form", name="registerForm")
+    div.form-group
+      label.col-sm-2.control-label Email
+      div.col-sm-10
+        input.form-control(type="email",required, ng-model="user.username", ng-change="onUserNameChange()", placeholder="Email Address" ,ensure-unique, ng-focus)
+    div.form-group
+      label.col-sm-2.control-label Password
+      div.col-sm-10
+        input.form-control(type="password",required, ng-model="user.password", placeholder="Password")
+    div.form-group
+      label.col-sm-2.control-label Name
+      label.sr-only.control-label First
+      div.col-sm-5
+        input.form-control(type="text",required, ng-model="user.first", placeholder="First Name")
+      label.sr-only.control-label Last
+      div.col-sm-5
+        input.form-control(type="text",required, ng-model="user.last", placeholder="Last Name")
+    div.form-actions.col-sm-offset-2.col-sm-10
+      button.btn.btn-primary(type=submit,ng-click="registerUser(user)", ng-disabled="registerForm.$invalid") Register
+      &nbsp;
+      button.btn(ng-click="cancelRegister()") Cancel
+link(rel='stylesheet', href='/stylesheets/add_baby.css')
