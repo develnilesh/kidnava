@@ -22,7 +22,8 @@ var UserSchema = new Schema({
   google: {},
   facebook: {},
   access_token: { type: String },
-  refresh_token: { type: String }
+  refresh_token: { type: String },
+  activation_token: { type: String}
 });
 
 UserSchema.virtual('id')

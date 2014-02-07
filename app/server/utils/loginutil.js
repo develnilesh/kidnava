@@ -1,7 +1,12 @@
 'use strict';
 
-var uuid = require('uuid-v4');
+var uuid = require('node-uuid');
 var User = require('../db/user');
+var jade = require('jade');
+var fs = require('fs');
+var Mail = require('./mailerutil');
+var Path = require('path');
+var config = require('../config');
 
 exports.loginOrCreate = function(provider, profile, accessToken, refreshToken, done) {
   var providerId = {};
@@ -12,12 +17,13 @@ exports.loginOrCreate = function(provider, profile, accessToken, refreshToken, d
     if (err) { return done(err); }
     if (!user) {
       user = new User({
-              first: profile.name.givenName || profile.given_name
-            , last: profile.name.familyName || profile.family_name
-            , email: profile.emails[0].value
-            , gender: profile.gender || profile._json.gender || 'unknown'
-            , picture: profile._json.picture
-            , password: uuid()
+              first: profile.name.givenName || profile.given_name,
+              last: profile.name.familyName || profile.family_name,
+              email: profile.emails[0].value,
+              gender: profile.gender || profile._json.gender || 'unknown',
+              picture: profile._json.picture,
+              password: uuid(),
+              active: true
           });
       user[provider] = profile._json;
       user.access_token = accessToken;
@@ -40,15 +46,22 @@ exports.registerLocalUser = function(newUser, callback) {
   User.findOne({email: newUser.username}, function(err, user) {
     if (err) { callback(false); }
     if (!user) {
+      var token = uuid.v4();
       user = new User({
-              first: newUser.first
-            , last: newUser.last
-            , email: newUser.username
-            , gender: newUser.gender
-            , hashed_password: newUser.password
+              first: newUser.first,
+              last: newUser.last,
+              email: newUser.username,
+              gender: newUser.gender,
+              hashed_password: newUser.password,
+              activation_token: token,
+              active: false
           });
       console.log('created profile:' + user);
       user.save(function(err) {
+        Mail.sendMail(config.mail.emailAddress,
+            newUser.username,
+            "Activate Kidnava",
+            GetInvitiationMail(newUser.first, token));
 	callback(true);
       });
     } else {
@@ -70,6 +83,29 @@ exports.isNewUsername = function (username, callback) {
   User.findOne({ email: username }, function (err, user) {
     if (err) { callback(false, "Failed query"); }
     if (!user) {
+      callback(true);
+    } else {
+      callback(false);
+    }
+  });
+};
+
+var  GetInvitiationMail = function(first, token) {
+  var jadetemplate = jade.compile(
+      fs.readFileSync(Path.join(__dirname,
+          '../views/partials/invitation.jade'), 'utf8'));
+  var url = "http://" + config.node.host + ":" + config.node.port +
+            "/activate/" + token;
+  return jadetemplate({ link: url, first: first });
+};
+
+exports.verifyToken = function (token, callback) {
+  User.findOne({ activation_token: token }, function (err, user) {
+    if (err) { callback(false, "Failed query"); }
+    if (user) {
+      user.active = true;
+      // Ignoring error for now.
+      user.save(function(err){});
       callback(true);
     } else {
       callback(false);

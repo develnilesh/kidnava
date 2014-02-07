@@ -2,15 +2,16 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , passport = require('passport')
-  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
-  , LocalStrategy = require('passport-local').Strategy
-  , login = require('./app/server/utils/loginutil')
-  , user = require('./app/server/db/user')
-  , mongoose = require('mongoose');
+var express = require('express'),
+  http = require('http'),
+  path = require('path'),
+  passport = require('passport'),
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+  LocalStrategy = require('passport-local').Strategy,
+  login = require('./app/server/utils/loginutil'),
+  user = require('./app/server/db/user'),
+  mongoose = require('mongoose'),
+  config = require('./app/server/config');
 
 var app = express();
 
@@ -21,7 +22,7 @@ mongoose.connect(mongodbURI);
 
 // App configuration
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', config.node.port);
   app.set('views', __dirname + '/app/server/views');
   app.set('view engine', 'jade');
   app.set('view options', {
@@ -82,8 +83,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: process.argv[2],
-    clientSecret: process.argv[3],
+    clientID: config.google.clientId,
+    clientSecret: config.google.clientSecret,
     callbackURL: "http://ec2-54-213-102-86.us-west-2.compute.amazonaws.com:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {

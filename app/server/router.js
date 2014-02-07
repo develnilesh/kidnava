@@ -62,7 +62,13 @@ app.get('/login', routes.index);
 app.get('/register', routes.register);
 app.get('/partials/:name', routes.partials);
 app.get('/api/isNewUsername/:username', api.isNewUsername);
-
+app.get('/activate/:token', api.activateUser);
+app.get('/activated', function (req, res) {
+  res.render('partials/activated');
+});
+app.get('/resendActivation', function (req, res) {
+  res.render('partials/resendActivation');
+});
 
 // JSON API
 app.post('/api/addBaby', ensureAuthenticated, api.addBaby);

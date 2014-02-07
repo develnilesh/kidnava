@@ -1,0 +1,8 @@
+h3 Resend Activation
+form.form-horizontal(role="form", name="activationForm")
+  div.form-group
+    label.sr-only.control-label Email
+    div.col-sm-6.controls
+      input.form-control(type="email", ng-model="email", placeholder="Email Address")
+  div.form-actions.col-sm-6
+    button.btn.btn-primary(type="submit", ng-click="resendActivationToken(email)", ng-disabled="activationForm.$invalid") Send

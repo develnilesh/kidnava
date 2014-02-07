@@ -97,3 +97,15 @@ exports.isNewUsername = function(req, res) {
     }
   });
 };
+
+exports.activateUser = function(req, res) {
+  var token = req.params.token;
+  Login.verifyToken(token, function (isActivated, error) {
+    if (isActivated) {
+      res.redirect('/activated');
+    } else {
+      res.redirect('/resendActivation');
+    }
+  });
+};
+

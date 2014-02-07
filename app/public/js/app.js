@@ -11,7 +11,6 @@ angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.direc
       when('/', {
         templateUrl: 'partials/welcome',
         controller: 'WelcomeCtrl'
-        //controller: 'IndexCtrl'
       }).
       when('/register', {
         templateUrl: 'partials/register',
@@ -31,6 +30,12 @@ angular.module('kidnava', ['kidnava.filters', 'kidnava.services', 'kidnava.direc
       }).
       when('/logout', {
         controller: 'LogoutCtrl'
+      }).
+      when('/activated', {
+        templateUrl: 'partials/activated'
+      }).
+      when('/resendActivation', {
+        templateUrl: 'partials/resendActivation'
       }).
       otherwise({
         redirectTo: '/'
